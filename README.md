@@ -2,17 +2,20 @@
 
 ## 备注
 
-Javassist的字节码采用了JDK8，fork版本将字节码版本修改为了1.6，其他的没有任何的变化。
-
 **添加依赖:**
 
 ```xml
 <dependency>
     <groupId>org.javaweb</groupId>
     <artifactId>javaweb-javassist</artifactId>
-    <version>${javassist.version}</version>
+    <version>3.28.01</version>
 </dependency>
 ```
+
+更新记录：
+
+1. Javassist的字节码采用了JDK8，fork版本将字节码版本修改为了1.6，其他的没有任何的变化。
+2. 修复addCatch无法使用"$r" bug；
 
 Java bytecode engineering toolkit
 ### [Javassist version 3](http://www.javassist.org)

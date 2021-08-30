@@ -1176,6 +1176,9 @@ public abstract class CtBehavior extends CtMember {
                             Modifier.isStatic(getModifiers()));
             int var = jv.recordVariable(exceptionType, exceptionName);
             b.addAstore(var);
+
+            jv.recordReturnType(getReturnType0(), false);
+
             jv.compileStmnt(src);
 
             int stack = b.getMaxStack();
