@@ -4,6 +4,16 @@
 
 Javassist的字节码采用了JDK8，fork版本将字节码版本修改为了1.6，其他的没有任何的变化。
 
+**添加依赖:**
+
+```xml
+<dependency>
+    <groupId>org.javaweb</groupId>
+    <artifactId>javaweb-javassist</artifactId>
+    <version>${javassist.version}</version>
+</dependency>
+```
+
 Java bytecode engineering toolkit
 ### [Javassist version 3](http://www.javassist.org)
 
