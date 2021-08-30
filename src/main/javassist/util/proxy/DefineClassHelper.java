@@ -16,15 +16,15 @@
 
 package javassist.util.proxy;
 
+import javassist.CannotCompileException;
+import javassist.bytecode.ClassFile;
+
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 import java.util.List;
-
-import javassist.CannotCompileException;
-import javassist.bytecode.ClassFile;
 
 /**
  * Helper class for invoking {@link ClassLoader#defineClass(String,byte[],int,int)}.
@@ -293,7 +293,10 @@ public class DefineClassHelper {
             Lookup lookup = MethodHandles.lookup();
             Lookup prvlookup = MethodHandles.privateLookupIn(neighbor, lookup);
             return prvlookup.defineClass(bcode);
-        } catch (IllegalAccessException | IllegalArgumentException e) {
+        } catch (IllegalAccessException  e) {
+            throw new CannotCompileException(e.getMessage() + ": " + neighbor.getName()
+                    + " has no permission to define the class");
+        } catch (IllegalArgumentException e) {
             throw new CannotCompileException(e.getMessage() + ": " + neighbor.getName()
                                              + " has no permission to define the class");
         }
@@ -312,7 +315,9 @@ public class DefineClassHelper {
     {
         try {
             return lookup.defineClass(bcode);
-        } catch (IllegalAccessException | IllegalArgumentException e) {
+        } catch (IllegalAccessException  e) {
+            throw new CannotCompileException(e.getMessage());
+        } catch (IllegalArgumentException e) {
             throw new CannotCompileException(e.getMessage());
         }
     }

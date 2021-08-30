@@ -1,5 +1,9 @@
 [![Java CI with Maven](https://github.com/jboss-javassist/javassist/actions/workflows/maven.yml/badge.svg)](https://github.com/jboss-javassist/javassist/actions/workflows/maven.yml)
 
+## 备注
+
+Javassist的字节码采用了JDK8，fork版本将字节码版本修改为了1.6，其他的没有任何的变化。
+
 Java bytecode engineering toolkit
 ### [Javassist version 3](http://www.javassist.org)
 

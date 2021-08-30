@@ -15,11 +15,11 @@
  */
 package javassist.bytecode.analysis;
 
-import java.util.*;
-
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
+
+import java.util.*;
 
 /**
  * Represents a JVM type in data-flow analysis. This abstraction is necessary since
@@ -504,7 +504,7 @@ public class Type {
         // Reduce to subinterfaces
         // This does not need to be recursive since we make a copy,
         // and that copy contains all super types for the whole hierarchy
-        Collection<CtClass> interfaces = new ArrayList<>();
+        Collection<CtClass> interfaces = new ArrayList<CtClass>();
         for (CtClass intf : alterMap.values()) {
             try {
                 interfaces.addAll(Arrays.asList(intf.getInterfaces()));
