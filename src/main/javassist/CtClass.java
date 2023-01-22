@@ -69,7 +69,7 @@ public abstract class CtClass {
     /**
      * The version number of this release.
      */
-    public static final String version = "3.29.0-SNAPSHOT";
+    public static final String version = "3.29.2-GA";
 
     /**
      * Prints the version number and the copyright notice.
@@ -80,7 +80,7 @@ public abstract class CtClass {
      */
     public static void main(String[] args) {
         System.out.println("Javassist version " + CtClass.version);
-        System.out.println("Copyright (C) 1999-2021 Shigeru Chiba."
+        System.out.println("Copyright (C) 1999-2022 Shigeru Chiba."
                            + " All Rights Reserved.");
     }
 
@@ -200,12 +200,12 @@ public abstract class CtClass {
      */
     @Override
     public String toString() {
-        StringBuffer buf = new StringBuffer(getClass().getName());
-        buf.append("@");
+        StringBuilder buf = new StringBuilder(getClass().getName());
+        buf.append('@');
         buf.append(Integer.toHexString(hashCode()));
-        buf.append("[");
+        buf.append('[');
         extendToString(buf);
-        buf.append("]");
+        buf.append(']');
         return buf.toString();
     }
 
@@ -213,7 +213,7 @@ public abstract class CtClass {
      * Implemented in subclasses to add to the {@link #toString()} result.
      * Subclasses should put a space before each token added to the buffer.
      */
-    protected void extendToString(StringBuffer buffer) {
+    protected void extendToString(StringBuilder buffer) {
         buffer.append(getName());
     }
 

@@ -18,6 +18,7 @@ package javassist.bytecode.annotation;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import javassist.ClassPool;
 import javassist.bytecode.ConstPool;
@@ -64,15 +65,23 @@ public abstract class MemberValue {
         int index = classname.indexOf("[]");
         if (index != -1) {
             String rawType = classname.substring(0, index);
-            StringBuffer sb = new StringBuffer(Descriptor.of(rawType));
+            StringBuilder sb = new StringBuilder(Descriptor.of(rawType));
             while (index != -1) {
-                sb.insert(0, "[");
+                sb.insert(0, '[');
                 index = classname.indexOf("[]", index + 1);
             }
             return sb.toString().replace('/', '.');
         }
         return classname;
     }
+
+    /* The following two methods are used to implement
+     * ClassFile.renameClass().
+     * Only ArrayMemberValue, ClassMemberValue, EnumMemberValue
+     * override these methods.
+     */
+    public void renameClass(String oldname, String newname) {}
+    public void renameClass(Map<String, String> classnames) {}
 
     /**
      * Accepts a visitor.
