@@ -108,7 +108,7 @@
     <junit fork="true" printsummary="true" dir="${test.run.dir}">
       <classpath refid="test.classpath"/>
       <formatter type="xml" extension=".xml"/>
-      <test name="javassist.JvstTest" outfile="TestLog" />
+      <test name="org.javaweb.javassist.JvstTest" outfile="TestLog" />
     </junit>
     <move file="${test.lib.dir}/emptyorig.jar"
           tofile="${test.lib.dir}/empty.jar" />
@@ -122,7 +122,7 @@
       <jvmarg value="-XX:-FailOverToOldVerifier"/>
       <classpath refid="test.classpath"/>
       <formatter type="xml" extension=".xml"/>
-      <test name="javassist.JvstTest" outfile="TestLog" />
+      <test name="org.javaweb.javassist.JvstTest" outfile="TestLog" />
     </junit>
     <move file="${test.lib.dir}/emptyorig.jar"
           tofile="${test.lib.dir}/empty.jar" />
@@ -137,7 +137,7 @@
       <jvmarg value="-XX:-FailOverToOldVerifier"/>
       <classpath refid="test.classpath"/>
       <formatter type="xml" extension=".xml"/>
-      <test name="javassist.JvstTest" outfile="TestLog" />
+      <test name="org.javaweb.javassist.JvstTest" outfile="TestLog" />
     </junit>
     <move file="${test.lib.dir}/emptyorig.jar"
           tofile="${test.lib.dir}/empty.jar" />
@@ -268,7 +268,7 @@ Copyright (C) 1999- Shigeru Chiba. All Rights Reserved.</i>]]></bottom>
   </target>
 
   <target name = "sample-reflect" depends="sample" >
-    <java fork="true" dir="${run.dir}" classname="javassist.tools.reflect.Loader">
+    <java fork="true" dir="${run.dir}" classname="org.javaweb.javassist.tools.reflect.Loader">
       <classpath refid="classpath"/>
       <arg line="sample.reflect.Main Joe" />
     </java>

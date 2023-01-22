@@ -180,7 +180,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>javassist.CtClass</mainClass>
+              <mainClass>org.javaweb.javassist.CtClass</mainClass>
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
             <manifestFile>src/main/META-INF/MANIFEST.MF</manifestFile>

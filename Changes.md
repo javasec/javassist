@@ -57,7 +57,7 @@
 #### version 3.21 on October 4, 2016
 
 * JIRA JASSIST-244, 245, 248, 250, 255, 256, 259, 262.
-* `javassist.tools.Callback` was modified to be Java 1.4 compatible.
+* `tools.org.javaweb.javassist.Callback` was modified to be Java 1.4 compatible.
     The parameter type of `Callback#result()` was changed.
 * The algorithm for generating a stack-map table was modified to fix github issue #83.
 * A bug of ProxyFactory related to default methods was fixed.  It is github issue #45. 
@@ -97,7 +97,7 @@
 
 * JIRA JASSIST-126, 127, 144, 145, 146, 147, 149, 150, 151, 152, 153, 155.
 
-* `javassist.bytecode.analysis.ControlFlow` was added.
+* `analysis.bytecode.org.javaweb.javassist.ControlFlow` was added.
 
 * Java 7 compatibility.
 
@@ -123,7 +123,7 @@
 
 * JIRA JASSIST-67, 68, 74, 75, 76, 77, 81, 83, 84, 85, 86, 87 were fixed.
 
-* Now javassist.bytecode.CodeIterator can insert a gap into
+* Now bytecode.org.javaweb.javassist.CodeIterator can insert a gap into
     	a large method body more than 32KB.  (JIRA JASSIST-79, 80)
 
 #### version 3.10 on March 5, 2009
@@ -226,19 +226,19 @@
 
 #### version 3.2.0.CR2 on May 9, 2006
 
-* A bug of replace(String,ExprEditor) in javassist.expr.Expr has been fixed.
+* A bug of replace(String,ExprEditor) in expr.org.javaweb.javassist.Expr has been fixed.
 
 * Updated ProxyFactory getClassLoader to choose the javassit class loader
        when the proxy superclass has a null class loader (a jdk/endorsed class)
        ([JASSIST-18](http://jira.jboss.com/jira/browse/JASSIST-18)).
 
-* Updated the throws clause of the javassist.util.proxy.MethodHandler
+* Updated the throws clause of the proxy.util.org.javaweb.javassist.MethodHandler
        to be Throwable rather than Exception
        ([JASSIST-16](http://jira.jboss.com/jira/browse/JASSIST-16)).
 
 #### version 3.2.0.CR1 on March 18, 2006
 
-* Annotations enhancements to javassist.bytecode.MethodInfo.
+* Annotations enhancements to bytecode.org.javaweb.javassist.MethodInfo.
 
 * Allow a ClassPool to override the "guess" at the classloader to use.
 
@@ -248,7 +248,7 @@
         were changed to return non-private memebers instead of only
         public members.
 
-* getEnclosingClass() in javassist.CtClass was renamed
+* getEnclosingClass() in org.javaweb.javassist.CtClass was renamed
           to getEnclosingMethod().
 
 * getModifiers() was extended to return Modifier.STATIC if the class
@@ -257,7 +257,7 @@
 * The return type of CtClass.stopPruning() was changed from void
         to boolean.
 
-* toMethod() in javassist.CtConstructor has been implemented.
+* toMethod() in org.javaweb.javassist.CtConstructor has been implemented.
 
 * It includes new javassist.util.proxy package
           similar to Enhancer of CGLIB.
@@ -285,7 +285,7 @@
 * Better annotation supports.  See `CtClass.getAnnotations()`
 * javassist.tool.HotSwapper was added.
 
-* javassist.ClassPool.importPackage() was added.
+* org.javaweb.javassist.ClassPool.importPackage() was added.
 
 * The compiler now accepts array initializers
         (only one dimensional arrays).
@@ -306,11 +306,11 @@
 * CtClass.toClass() has been reimplemented.  The behavior has been
           changed.
 
-* javassist.expr.NewArray has been implemented.  It enables modifying
+* expr.org.javaweb.javassist.NewArray has been implemented.  It enables modifying
           an expression for array creation.
 
 * `.class` notation has been supported.  The modified class
-          file needs javassist.runtime.DotClass at runtime.
+          file needs runtime.org.javaweb.javassist.DotClass at runtime.
 
 * a bug in `CtClass.getMethods()` has been fixed.
 
@@ -322,13 +322,13 @@
 
     * writeFile(), write(), ... in ClassPool have been moved to CtClass.
 
-    * The design of javassist.Translator has been changed.
+    * The design of org.javaweb.javassist.Translator has been changed.
 
 * javassist.bytecode.annotation has been added for meta tags.
 
 * CtClass.makeNestedClass() has been added.
 
-* The methods declared in javassist.bytecode.InnerClassesAttribute
+* The methods declared in bytecode.org.javaweb.javassist.InnerClassesAttribute
           have been renamed a bit.
 
 * Now local variables were made available in the source text passed to
@@ -338,11 +338,11 @@
 
 * ClassPool.SimpleLoader has been public.
 
-* javassist.bytecode.DeprecatedAttribute has been added.
+* bytecode.org.javaweb.javassist.DeprecatedAttribute has been added.
 
-* javassist.bytecode.LocalVariableAttribute has been added.
+* bytecode.org.javaweb.javassist.LocalVariableAttribute has been added.
 
-* CtClass.getURL() and javassist.ClassPath.find() has been added.
+* CtClass.getURL() and org.javaweb.javassist.ClassPath.find() has been added.
 
 * CtBehavior.insertAt() has been added.
 
@@ -359,9 +359,9 @@
 
 * CtNewMethod.delegator() now works for static methods.
 
-* javassist.expr.Expr.indexOfBytecode() has been added.
+* expr.org.javaweb.javassist.Expr.indexOfBytecode() has been added.
 
-* javassist.Loader has been modified so that getPackage() returns
+* org.javaweb.javassist.Loader has been modified so that getPackage() returns
           a package object.
 
 * Now, the compiler can correctly compile a try statement and an
@@ -385,11 +385,11 @@ From this version, Javassist is part of the JBoss project.
 
 * CtClass.makeClassInitializer() has been added.
 
-* javassist.expr.Expr has been changed to a public class.
+* expr.org.javaweb.javassist.Expr has been changed to a public class.
 
-* javassist.expr.Handler has been added.
+* expr.org.javaweb.javassist.Handler has been added.
 
-* javassist.expr.MethodCall.isSuper() has been added.
+* expr.org.javaweb.javassist.MethodCall.isSuper() has been added.
 
 * CtMethod.isEmpty() and CtConstructor.isEmpty() have been added.
 
@@ -400,10 +400,10 @@ From this version, Javassist is part of the JBoss project.
 * The compiler included in Javassist did not correctly work with
     	interface methods.  This bug was fixed.
 
-* Now javassist.bytecode.Bytecode allows more than 255 local
+* Now bytecode.org.javaweb.javassist.Bytecode allows more than 255 local
     	variables in the same method.
 
-* javassist.expr.Instanceof and Cast have been added.
+* expr.org.javaweb.javassist.Instanceof and Cast have been added.
 
 * javassist.expr.{MethodCall,NewExpr,FieldAccess,Instanceof,Cast}.where()
             have been added.  They return the caller-side method surrounding the
@@ -415,7 +415,7 @@ From this version, Javassist is part of the JBoss project.
 * $class has been introduced.
 
 * The parameters to replaceFieldRead(), replaceFieldWrite(),
-          and redirectFieldAccess() in javassist.CodeConverter are changed.
+          and redirectFieldAccess() in org.javaweb.javassist.CodeConverter are changed.
 
 * The compiler could not correctly handle a try-catch statement.
           This bug has been fixed.
@@ -444,31 +444,31 @@ From this version, Javassist is part of the JBoss project.
             This is replacement of classic `CodeConverter`.
 
 * javassist.ConstParameter was changed into
-    	javassist.CtMethod.ConstParameter.
+    	org.javaweb.javassist.CtMethod.ConstParameter.
 
 * javassist.FieldInitializer was renamed into
-    	javassist.CtField.Initializer.
+    	org.javaweb.javassist.CtField.Initializer.
 
-* A bug in javassist.bytecode.Bytecode.addInvokeinterface() has been
+* A bug in bytecode.org.javaweb.javassist.Bytecode.addInvokeinterface() has been
     	fixed.
 
-* In javassist.bytecode.Bytecode, addGetfield(), addGetstatic(),
+* In bytecode.org.javaweb.javassist.Bytecode, addGetfield(), addGetstatic(),
     	addInvokespecial(), addInvokestatic(), addInvokevirtual(),
     	and addInvokeinterface()
     	have been modified to update the current statck depth.
 
 #### version 2.1 in July, 2002.
 
-* javassist.CtMember and javassist.CtBehavior have been added.
+* org.javaweb.javassist.CtMember and org.javaweb.javassist.CtBehavior have been added.
 
-* javassist.CtClass.toBytecode() has been added.
+* org.javaweb.javassist.CtClass.toBytecode() has been added.
 
-* javassist.CtClass.toClass() and javassist.ClassPool.writeAsClass()
+* org.javaweb.javassist.CtClass.toClass() and org.javaweb.javassist.ClassPool.writeAsClass()
     	has been added.
 
-* javassist.ByteArrayClassPath has been added.
+* org.javaweb.javassist.ByteArrayClassPath has been added.
 
-* javassist.bytecode.Mnemonic has been added.
+* bytecode.org.javaweb.javassist.Mnemonic has been added.
 
 * Several bugs have been fixed.
 
@@ -495,7 +495,7 @@ version 1.0 in July, 2001.
 * javassist.FiledInitializer.byNewArray() was added.  It is for
         initializing a field with an array object.
 
-* javassist.CodeConverter.redirectMethodCall() was added.
+* org.javaweb.javassist.CodeConverter.redirectMethodCall() was added.
 
 * javassist.Run was added.
 
@@ -533,7 +533,7 @@ version 1.0 in July, 2001.
 
 * javassist.CtNewInterface was added.
 
-* javassist.Loader.recordClass() was renamed into makeClass().
+* org.javaweb.javassist.Loader.recordClass() was renamed into makeClass().
 
 * javassist.UserLoader.loadClass() was changed to take the second
 parameter.
@@ -546,7 +546,7 @@ parameter.
 
 * Major update again.  Many classes and methods were changed.
 Most of methods taking java.lang.Class have been changed to
-take javassist.CtClass.
+take org.javaweb.javassist.CtClass.
 
 #### version 0.3
 

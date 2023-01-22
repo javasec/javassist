@@ -825,13 +825,13 @@ be helpful:
 
 <p><br>
 
-<h3>3.3 Using <code>javassist.Loader</code></h3>
+<h3>3.3 Using <code>org.javaweb.javassist.Loader</code></h3>
 
 <p>Javassist provides a class loader
-<code>javassist.Loader</code>.  This class loader uses a
-<code>javassist.ClassPool</code> object for reading a class file.
+<code>org.javaweb.javassist.Loader</code>.  This class loader uses a
+<code>org.javaweb.javassist.ClassPool</code> object for reading a class file.
 
-<p>For example, <code>javassist.Loader</code> can be used for loading
+<p>For example, <code>org.javaweb.javassist.Loader</code> can be used for loading
 a particular class modified with Javassist.
 
 <ul><pre>
@@ -860,7 +860,7 @@ class, and creates a new instance of the
 <code>test.Rectangle</code> class.
 
 <p>If the users want to modify a class on demand when it is loaded,
-the users can add an event listener to a <code>javassist.Loader</code>.
+the users can add an event listener to a <code>org.javaweb.javassist.Loader</code>.
 The added event listener is
 notified when the class loader loads a class.
 The event-listener class must implement the following interface:
@@ -873,10 +873,10 @@ The event-listener class must implement the following interface:
 }</pre></ul>
 
 <p>The method <code>start()</code> is called when this event listener
-is added to a <code>javassist.Loader</code> object by
-<code>addTranslator()</code> in <code>javassist.Loader</code>.  The
+is added to a <code>org.javaweb.javassist.Loader</code> object by
+<code>addTranslator()</code> in <code>org.javaweb.javassist.Loader</code>.  The
 method <code>onLoad()</code> is called before
-<code>javassist.Loader</code> loads a class.  <code>onLoad()</code>
+<code>org.javaweb.javassist.Loader</code> loads a class.  <code>onLoad()</code>
 can modify the definition of the loaded class.
 
 <p>For example, the following event listener changes all classes
@@ -895,7 +895,7 @@ to public classes just before they are loaded.
 
 <p>Note that <code>onLoad()</code> does not have to call
 <code>toBytecode()</code> or <code>writeFile()</code> since
-<code>javassist.Loader</code> calls these methods to obtain a class
+<code>org.javaweb.javassist.Loader</code> calls these methods to obtain a class
 file.
 
 <p>To run an application class <code>MyApp</code> with a
@@ -928,16 +928,16 @@ are translated by <code>MyTranslator</code>.
 access the <em>loader</em> classes such as <code>Main2</code>,
 <code>MyTranslator</code>, and <code>ClassPool</code> because they
 are loaded by different loaders.  The application classes are loaded
-by <code>javassist.Loader</code> whereas the loader classes such as
+by <code>org.javaweb.javassist.Loader</code> whereas the loader classes such as
 <code>Main2</code> are by the default Java class loader.
 
-<p><code>javassist.Loader</code> searches for classes in a different
+<p><code>org.javaweb.javassist.Loader</code> searches for classes in a different
 order from <code>java.lang.ClassLoader</code>.
 <code>ClassLoader</code> first delegates the loading operations to
 the parent class loader and then attempts to load the classes
 only if the parent class loader cannot find them.
 On the other hand,
-<code>javassist.Loader</code> attempts
+<code>org.javaweb.javassist.Loader</code> attempts
 to load the classes before delegating to the parent class loader.
 It delegates only if:
 
@@ -958,7 +958,7 @@ Recall that all the classes referred to in a class C are loaded by the
 real loader of C.
 <em>If your program fails to load a modified class,</em> you should
 make sure whether all the classes using that class have been loaded by
-<code>javassist.Loader</code>.
+<code>org.javaweb.javassist.Loader</code>.
 
 <p><br>
 
@@ -1037,7 +1037,7 @@ Hence, the
 
 <p>The system classes like <code>java.lang.String</code> cannot be
 loaded by a class loader other than the system class loader.
-Therefore, <code>SampleLoader</code> or <code>javassist.Loader</code>
+Therefore, <code>SampleLoader</code> or <code>org.javaweb.javassist.Loader</code>
 shown above cannot modify the system classes at loading time.
 
 <p>If your application needs to do that, the system classes must be

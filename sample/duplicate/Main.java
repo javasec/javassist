@@ -30,7 +30,7 @@ package sample.duplicate;
   % java sample.duplicate.Main
 
   You would see two balls in a window.  This is because
-  sample.duplicate.Viewer is loaded by javassist.tools.reflect.Loader so that
+  sample.duplicate.Viewer is loaded by reflect.tools.org.javaweb.javassist.Loader so that
   a metaobject would be attached.
 */
 public class Main {
@@ -38,7 +38,7 @@ public class Main {
 	javassist.tools.reflect.Loader cl = new javassist.tools.reflect.Loader();
 	cl.makeReflective("sample.duplicate.Ball",
 			  "sample.duplicate.DuplicatedObject",
-			  "javassist.tools.reflect.ClassMetaobject");
+			  "reflect.tools.org.javaweb.javassist.ClassMetaobject");
 	cl.run("sample.duplicate.Viewer", args);
     }
 }

@@ -46,20 +46,20 @@ of class files.
 
 <p>
 If you want to just produce a simple class file,
-<code>javassist.bytecode.ClassFileWriter</code> might provide
+<code>org.javaweb.javassist.bytecode.ClassFileWriter</code> might provide
 the best API for you.  It is much faster than
-<code>javassist.bytecode.ClassFile</code> although its API
+<code>org.javaweb.javassist.bytecode.ClassFile</code> although its API
 is minimum.
 
 <a name="classfile">
 <h3>5.1 Obtaining a <code>ClassFile</code> object</h3>
 
-<p>A <code>javassist.bytecode.ClassFile</code> object represents
+<p>A <code>org.javaweb.javassist.bytecode.ClassFile</code> object represents
 a class file.  To obtian this object, <code>getClassFile()</code>
 in <code>CtClass</code> should be called.
 
 <p>Otherwise, you can construct a
-<code>javassist.bytecode.ClassFile</code> directly from a class file.
+<code>org.javaweb.javassist.bytecode.ClassFile</code> directly from a class file.
 For example,
 
 <ul><pre>
@@ -273,7 +273,7 @@ These attributes can be obtained from <code>ClassFile</code>,
 <code>MethodInfo</code>, or <code>FieldInfo</code> objects.
 Call <code>getAttribute(AnnotationsAttribute.invisibleTag)</code>
 on those objects.  For more details, see the javadoc manual
-of <code>javassist.bytecode.AnnotationsAttribute</code> class
+of <code>org.javaweb.javassist.bytecode.AnnotationsAttribute</code> class
 and the <code>javassist.bytecode.annotation</code> package.
 
 <p>Javassist also let you access annotations by the higher-level
@@ -411,7 +411,7 @@ length(1, 2, 3);
 you must perform <it>preverification</it>.  Preverifying is basically
 producing stack maps, which is similar to stack map tables introduced
 into J2SE at JDK 1.6.  Javassist maintains the stack maps for J2ME only if
-<code>javassist.bytecode.MethodInfo.doPreverify</code> is true.
+<code>org.javaweb.javassist.bytecode.MethodInfo.doPreverify</code> is true.
 
 <p>You can also manually
 produce a stack map for a modified method.

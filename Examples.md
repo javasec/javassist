@@ -70,7 +70,7 @@ To run, type the commands:
 
 ```
 % javac sample/reflect/*.java
-% java javassist.tools.reflect.Loader sample.reflect.Main Joe
+% java reflect.tools.org.javaweb.javassist.Loader sample.reflect.Main Joe
 ```
 
 Compare this result with that of the regular execution without reflection:
@@ -86,7 +86,7 @@ all the Person objects become reflective without sample.reflect.Main.
 To do this, type the commands:
 
 ```
-% java javassist.tools.reflect.Compiler sample.reflect.Person -m sample.reflect.VerboseMetaobj
+% java reflect.tools.org.javaweb.javassist.Compiler sample.reflect.Person -m sample.reflect.VerboseMetaobj
 ```
 
 Then,

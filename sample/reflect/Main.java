@@ -14,7 +14,7 @@ import javassist.tools.reflect.Loader;
 
   To run,
 
-  % java javassist.tools.reflect.Loader sample.reflect.Main Joe
+  % java reflect.tools.org.javaweb.javassist.Loader sample.reflect.Main Joe
 
   Compare this result with that of the regular execution without reflection:
 
@@ -25,7 +25,7 @@ public class Main {
         Loader cl = (Loader)Main.class.getClassLoader();
         cl.makeReflective("sample.reflect.Person",
                           "sample.reflect.VerboseMetaobj",
-                          "javassist.tools.reflect.ClassMetaobject");
+                          "reflect.tools.org.javaweb.javassist.ClassMetaobject");
 
         cl.run("sample.reflect.Person", args);
     }

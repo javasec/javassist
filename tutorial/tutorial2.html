@@ -631,7 +631,7 @@ Note that <code>$_</code> is not available.
 <h4>Substituting source text for an existing expression</h4>
 
 <p>Javassist allows modifying only an expression included in a method body.
-<code>javassist.expr.ExprEditor</code> is a class
+<code>org.javaweb.javassist.expr.ExprEditor</code> is a class
 for replacing an expression in a method body.
 The users can define a subclass of <code>ExprEditor</code>
 to specify how an expression is modified.
@@ -706,7 +706,7 @@ if the method searched by <code>instrument()</code> was compiled
 with the -g option (the class file includes a local variable
 attribute).
 
-<h4>javassist.expr.MethodCall</h4>
+<h4>org.javaweb.javassist.expr.MethodCall</h4>
 
 <p>A <code>MethodCall</code> object represents a method call.
 The method <code>replace()</code> in
@@ -791,7 +791,7 @@ is ignored.
 syntax.  It must be followed by an argument list surrounded by parentheses
 <code>( )</code>.
 
-<h4>javassist.expr.ConstructorCall</h4>
+<h4>org.javaweb.javassist.expr.ConstructorCall</h4>
 
 <p>A <code>ConstructorCall</code> object represents a constructor call
 such as <code>this()</code> and <code>super</code> included in a constructor
@@ -855,7 +855,7 @@ normally a call to <code>$proceed()</code>.
 syntax.  It must be followed by an argument list surrounded by parentheses
 <code>( )</code>.
 
-<h4>javassist.expr.FieldAccess</h4>
+<h4>org.javaweb.javassist.expr.FieldAccess</h4>
 
 <p>A <code>FieldAccess</code> object represents field access.
 The method <code>edit()</code> in <code>ExprEditor</code>
@@ -943,7 +943,7 @@ are also available.
 <code>$_</code> in the source text.  The type of <code>$_</code>
 is the type of the field.
 
-<h4>javassist.expr.NewExpr</h4>
+<h4>org.javaweb.javassist.expr.NewExpr</h4>
 
 <p>A <code>NewExpr</code> object represents object creation
 with the <code>new</code> operator (not including array creation).
@@ -1014,7 +1014,7 @@ object creation.
 <code>$args</code> and <code>$$</code>
 are also available.
 
-<h4>javassist.expr.NewArray</h4>
+<h4>org.javaweb.javassist.expr.NewArray</h4>
 
 <p>A <code>NewArray</code> object represents array creation
 with the <code>new</code> operator.
@@ -1096,7 +1096,7 @@ String[][] s = new String[3][];
 
 then the value of $1 is 3 but $2 is not available.
 
-<h4>javassist.expr.Instanceof</h4>
+<h4>org.javaweb.javassist.expr.Instanceof</h4>
 
 <p>A <code>Instanceof</code> object represents an <code>instanceof</code>
 expression.
@@ -1172,7 +1172,7 @@ Otherwise, it returns false.
 <code>$args</code> and <code>$$</code>
 are also available.
 
-<h4>javassist.expr.Cast</h4>
+<h4>org.javaweb.javassist.expr.Cast</h4>
 
 <p>A <code>Cast</code> object represents an expression for
 explicit type casting.
@@ -1249,7 +1249,7 @@ and returns it after
 <code>$args</code> and <code>$$</code>
 are also available.
 
-<h4>javassist.expr.Handler</h4>
+<h4>org.javaweb.javassist.expr.Handler</h4>
 
 <p>A <code>Handler</code> object represents a <code>catch</code>
 clause of <code>try-catch</code> statement.
@@ -1609,11 +1609,11 @@ to <code>foo(A)</code> although the compiler can correctly compile
 between a class name and a static method or field name.
 For example, in regular Java,
 
-<ul><pre>javassist.CtClass.intType.getName()</pre></ul>
+<ul><pre>org.javaweb.javassist.CtClass.intType.getName()</pre></ul>
 
 <p>calls a method <code>getName()</code> on
 the object indicated by the static field <code>intType</code>
-in <code>javassist.CtClass</code>.  In Javassist, the users can
+in <code>org.javaweb.javassist.CtClass</code>.  In Javassist, the users can
 write the expression shown above but they are recommended to
 write:
 
