@@ -16,15 +16,12 @@
 
 package javassist.bytecode;
 
+import javassist.CtClass;
+import javassist.util.StringUtils;
+
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javassist.CtClass;
+import java.util.*;
 
 /**
  * <code>Signature_attribute</code>.
@@ -122,13 +119,13 @@ public class SignatureAttribute extends AttributeInfo {
             if (j < 0)
                 break;
 
-            final ArrayList<StringBuilder> nameBufs = new ArrayList<>();
-            final ArrayList<StringBuilder> genericParamBufs = new ArrayList<>();
+            final ArrayList<StringBuilder> nameBufs = new ArrayList();
+            final ArrayList<StringBuilder> genericParamBufs = new ArrayList();
             i = parseClassName(nameBufs, genericParamBufs, desc, j) + 1;
             if (i < 0)
                 break;
 
-            String name = String.join("$", nameBufs.toArray(new StringBuilder[0]));
+            String name = StringUtils.join(nameBufs.toArray(new StringBuilder[0]), '$');
             String newname = map.get(name);
             if (newname != null) {
                 if (makeNewClassName(desc, map, name, newname, newdesc, head, j,
@@ -203,8 +200,8 @@ public class SignatureAttribute extends AttributeInfo {
         if (nameSplit.length == newnameSplit.length) {
             final String[] newnames = new String[nameBufs.size()];
             for (int start = 0, z = 0; z < nameBufs.size(); z++) {
-                final int toAggregate = (int) nameBufs.get(z).chars().filter(ch -> ch == '$').count() + 1;
-                String s = String.join("$", Arrays.copyOfRange(newnameSplit, start, start + toAggregate));
+                final int toAggregate = StringUtils.countOf(nameBufs.get(z),'$') + 1;
+                String s = StringUtils.join(Arrays.copyOfRange(newnameSplit, start, start + toAggregate),'$');
                 start += toAggregate;
                 newnames[z] = s;
             }

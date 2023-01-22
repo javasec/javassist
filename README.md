@@ -2,20 +2,24 @@
 
 ## 备注
 
-**添加依赖:**
+### 添加依赖
 
 ```xml
 <dependency>
     <groupId>org.javaweb</groupId>
     <artifactId>javaweb-javassist</artifactId>
-    <version>3.28.01</version>
+    <version>3.29.2-GA</version>
 </dependency>
 ```
 
-更新记录：
+### 更新记录
 
 1. Javassist的字节码采用了JDK8，fork版本将字节码版本修改为了1.6，其他的没有任何的变化。
 2. 修复addCatch无法使用"$r" bug；
+
+### 其他
+
+构建时需要使用JDK11+，调过单元测试：`mvn clean install -DskipTests`
 
 Java bytecode engineering toolkit
 ### [Javassist version 3](http://www.javassist.org)

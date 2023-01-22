@@ -16,6 +16,8 @@
 
 package javassist;
 
+import javassist.bytecode.ClassFile;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +26,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 
-import javassist.bytecode.ClassFile;
+import static javassist.util.ReflectionUtils.invokeStaticMethod;
 
 /**
  * The class loader for Javassist.
@@ -421,8 +423,14 @@ public class Loader extends ClassLoader {
     }
 
     private boolean isDefinedPackage(String name) {
-        if (ClassFile.MAJOR_VERSION >= ClassFile.JAVA_9)
-            return getDefinedPackage(name) == null;
+        if (ClassFile.MAJOR_VERSION >= ClassFile.JAVA_9) {
+            try {
+                return invokeStaticMethod(ClassLoader.class, "getDefinedPackage", new Class[]{String.class}, name) == null;
+            } catch (Exception e) {
+                throw new RuntimeException();
+            }
+        }
+
         else
             return getPackage(name) == null;
     }

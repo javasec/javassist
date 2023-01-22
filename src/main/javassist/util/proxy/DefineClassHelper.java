@@ -19,15 +19,17 @@ package javassist.util.proxy;
 import javassist.CannotCompileException;
 import javassist.bytecode.ClassFile;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodHandles.Lookup;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.security.ProtectionDomain;
 import java.util.List;
 
+import static javassist.util.ReflectionUtils.invokeMethod;
+import static javassist.util.ReflectionUtils.invokeStaticMethod;
+
 /**
- * Helper class for invoking {@link ClassLoader#defineClass(String,byte[],int,int)}.
+ * Helper class for invoking ClassLoader#defineClass(String,byte[],int,int).
  *
  * @since 3.22
  */
@@ -57,9 +59,9 @@ public class DefineClassHelper {
     private static class Java9 extends Helper {
         final class ReferencedUnsafe {
             private final SecurityActions.TheUnsafe sunMiscUnsafeTheUnsafe;
-            private final MethodHandle defineClass;
+            private final Object defineClass;
 
-            ReferencedUnsafe(SecurityActions.TheUnsafe usf, MethodHandle meth) {
+            ReferencedUnsafe(SecurityActions.TheUnsafe usf, Object meth) {
                 this.sunMiscUnsafeTheUnsafe = usf;
                 this.defineClass = meth;
             }
@@ -75,9 +77,11 @@ public class DefineClassHelper {
                     throw new RuntimeException("cannot initialize", e);
                 }
                 try {
-                    return (Class<?>) defineClass.invokeWithArguments(
-                                sunMiscUnsafeTheUnsafe.theUnsafe,
-                                name, b, off, len, loader, protectionDomain);
+                    return (Class<?>) invokeMethod(defineClass, "invokeWithArguments",
+                            new Class[]{Object[].class}, new Object[]{
+                                    sunMiscUnsafeTheUnsafe.theUnsafe, name, b, off, len, loader, protectionDomain
+                            }
+                    );
                 } catch (Throwable e) {
                     if (e instanceof RuntimeException) throw (RuntimeException) e;
                     if (e instanceof ClassFormatError) throw (ClassFormatError) e;
@@ -126,7 +130,14 @@ public class DefineClassHelper {
                 // On Java 11+ the defineClass method does not exist anymore
                 if (null == defineClassMethod)
                     return null;
-                MethodHandle meth = MethodHandles.lookup().unreflect(defineClassMethod.get(0));
+
+                Class<?> methodHandlesClass = Class.forName("java.lang.invoke.MethodHandles");
+                Object   lookup             = invokeStaticMethod(methodHandlesClass, "lookup", new Class[0]);
+
+                Object meth = invokeMethod(
+                        lookup, "unreflect", new Class[]{Method.class}, defineClassMethod.get(0)
+                );
+
                 return new ReferencedUnsafe(usf, meth);
             } catch (Throwable e) {
                 throw new RuntimeException("cannot initialize", e);
@@ -151,8 +162,8 @@ public class DefineClassHelper {
 
     private static class Java7 extends Helper {
         private final SecurityActions stack = SecurityActions.stack;
-        private final MethodHandle defineClass = getDefineClassMethodHandle();
-        private final MethodHandle getDefineClassMethodHandle() {
+        private final Object defineClass = getDefineClassMethodHandle();
+        private final Object getDefineClassMethodHandle() {
             if (privileged != null && stack.getCallerClass() != this.getClass())
                 throw new IllegalAccessError("Access denied for caller.");
             try {
@@ -174,8 +185,11 @@ public class DefineClassHelper {
             if (stack.getCallerClass() != DefineClassHelper.class)
                 throw new IllegalAccessError("Access denied for caller.");
             try {
-                return (Class<?>) defineClass.invokeWithArguments(
-                            loader, name, b, off, len, protectionDomain);
+                return (Class<?>) invokeMethod(defineClass, "invokeWithArguments",
+                        new Class[]{Object[].class}, new Object[]{
+                                loader, name, b, off, len, protectionDomain
+                        }
+                );
             } catch (Throwable e) {
                 if (e instanceof RuntimeException) throw (RuntimeException) e;
                 if (e instanceof ClassFormatError) throw (ClassFormatError) e;
@@ -289,16 +303,33 @@ public class DefineClassHelper {
         throws CannotCompileException
     {
         try {
-            DefineClassHelper.class.getModule().addReads(neighbor.getModule());
-            Lookup lookup = MethodHandles.lookup();
-            Lookup prvlookup = MethodHandles.privateLookupIn(neighbor, lookup);
-            return prvlookup.defineClass(bcode);
+            Class<?> moduleClass        = Class.forName("java.lang.Module");
+            Class<?> methodHandlesClass = Class.forName("java.lang.invoke.MethodHandles");
+            Object   getModule          = invokeStaticMethod(DefineClassHelper.class, "getModule", new Class[0]);
+            Object   neighborModule     = invokeStaticMethod(neighbor, "getModule", new Class[0]);
+            invokeMethod(getModule, "addReads", new Class[]{moduleClass}, neighborModule);
+
+            Object lookup = invokeStaticMethod(methodHandlesClass, "lookup", new Class<?>[0]);
+
+            Object prvlookup = invokeStaticMethod(
+                    methodHandlesClass, "privateLookupIn", new Class[]{Class.class, lookup.getClass()}, new Object[]{neighbor, lookup}
+            );
+
+            return (Class<?>) invokeMethod(
+                    prvlookup, "defineClass", new Class[]{byte[].class}, new Object[]{bcode}
+            );
         } catch (IllegalAccessException  e) {
             throw new CannotCompileException(e.getMessage() + ": " + neighbor.getName()
                     + " has no permission to define the class");
         } catch (IllegalArgumentException e) {
             throw new CannotCompileException(e.getMessage() + ": " + neighbor.getName()
                                              + " has no permission to define the class");
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -310,15 +341,19 @@ public class DefineClassHelper {
      * @param bcode     the bytecode.
      * @since 3.24
      */
-    public static Class<?> toClass(Lookup lookup, byte[] bcode)
+    public static Class<?> toClass(Object lookup, byte[] bcode)
         throws CannotCompileException
     {
         try {
-            return lookup.defineClass(bcode);
+            return (Class<?>) invokeMethod(lookup, "defineClass", new Class[]{byte[].class}, new Object[]{bcode});
         } catch (IllegalAccessException  e) {
             throw new CannotCompileException(e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new CannotCompileException(e.getMessage());
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -331,9 +366,11 @@ public class DefineClassHelper {
         throws CannotCompileException
     {
         try {
-            Lookup lookup = MethodHandles.lookup();
-            lookup = lookup.dropLookupMode(java.lang.invoke.MethodHandles.Lookup.PRIVATE);
-            return lookup.defineClass(bcode);
+            Class<?> methodHandlesClass = Class.forName("java.lang.invoke.MethodHandles");
+            Object   lookup             = invokeStaticMethod(methodHandlesClass, "lookup", new Class<?>[0]);
+            lookup = invokeMethod(lookup, "dropLookupMode", new Class[]{int.class}, Modifier.PRIVATE);
+
+            return (Class<?>) invokeMethod(lookup, "defineClass", new Class[]{byte[].class}, bcode);
         }
         catch (Throwable t) {
             throw new CannotCompileException(t);
